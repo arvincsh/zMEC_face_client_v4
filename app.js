@@ -31,8 +31,9 @@ app.get('/facedetection', function (req, res) {
     //console.log(picdes);
 
     var form = new FormData();
-    		form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"fps/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
-    		var formHeaders = form.getHeaders();
+    		//form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"fps/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
+    		form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
+		var formHeaders = form.getHeaders();
     		var start_T = new Date().getTime();
       //  console.log("http://"+hostServer+"/"+picdes);
     		//axios.post("http://"+hostServer+"/"+picdes, form, {

@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.get('/', function (req, res) {
   res.render('index');
 })
-app.('/facedetection', function (req, res) {
+app.post('/facedetection', function (req, res) {
   //console.log("facedetection");
   var params = url.parse(req.url, true).query;
 		hostServer = params.url;

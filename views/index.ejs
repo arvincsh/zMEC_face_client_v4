@@ -12,22 +12,15 @@
 <body>
   <div class="jumbotron" >
      <div class="row" align="center" >
-
        <div class="col">
          <div class="row" align="center">
-
            <div class="col-12">
              <div class="input-group mb-1">
                <span class="input-group-text" id="basic-addon3" style="font-size:60px">Client Server URL https://</span>
                <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value="" style="font-size:60px">
              </div>
-             <div class="input-group mb-1">
-               <span class="input-group-text" id="basic-addon3" style="font-size:60px">Host Server URL https://</span>
-               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="" style="font-size:60px">
-             </div>
            </div>
-
-           <div class="col-5">
+           <div class="col-12">
              <div class="input-group mb-1">
                <div class="input-group-prepend">
      		        <span class="input-group-text" style="font-size:60px">Load Balance:</span>
@@ -39,20 +32,34 @@
              </div>
            </div>
 
-           <div class="col-5">
+           <div class="col-12">
              <div class="input-group mb-1">
                <div class="input-group-prepend">
-     		        <span class="input-group-text" style="font-size:60px">The FPS rate:</span>
-                 <select id="fps" style="font-size:60px" onchange="selectfps()">
-                   <option value="5">5</option>
-                   <option value="8">8</option>
-                   <option value="10">10</option>
-                   <option value="12">12</option>
+     		        <span class="input-group-text" style="font-size:60px">The data size:</span>
+                 <select id="size" style="font-size:60px">
+                   <option value="30">30 KB</option>
+                   <option value="60">60 KB</option>
+                   <option value="90">90 KB</option>
+                   <option value="120">120 KB</option>
+                   <option value="150">150 KB</option>
                  </select>
                </div>
              </div>
            </div>
-
+           <div class="col-10">
+             <div class="input-group mb-1">
+               <div class="input-group-prepend">
+     		        <span class="input-group-text" style="font-size:60px">The FPS rate :</span>
+                 <select id="fps" style="font-size:60px" onchange="selectfps()">
+                   <option value="1">1</option>
+                   <option value="3">3</option>
+                   <option value="5">5</option>
+                   <option value="8">8</option>
+                   <option value="10">10</option>
+                 </select>
+               </div>
+             </div>
+           </div>
            <div class="col-2">
              <button class="btn btn-primary" type="button" onclick="start();" style="font-size:60px">Start</button>
            </div>
@@ -62,6 +69,13 @@
 
        <div class="col">
          <div class="row" align="center">
+            <div class="col-12">
+           <div class="input-group mb-1">
+             <span class="input-group-text" id="basic-addon3" style="font-size:60px">Host Server URL https://</span>
+             <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="" style="font-size:60px">
+           </div>
+         </div>
+
            <div class="col-12">
                <span style="font-size:60px" align="center">Face-detection Cost:</span>
            </div>
@@ -191,9 +205,10 @@
     function showimg(stamp){
       $("#iImages").text(num);
       var fpsrate=document.getElementById("fps").value;
+      var datasize=document.getElementById("size").value;
       var freqency=1000/fpsrate;
       var num_end=fpsrate*30;
-      var objUrl = "../extract/"+fpsrate+"fps/test1_"+num+".jpg";
+      var objUrl = "../extract/"+fpsrate+"fps/"+datasize+"/test1_"+num+".jpg";
       $("#headPic").attr("src", objUrl);
       var show = Date.now();
       var delay= show-stamp;
@@ -213,6 +228,7 @@
     function submit(stamp_face) {
       var clienturl=document.getElementById("clienturl").value;
       var fpsrate_face=document.getElementById("fps").value;
+      var datasize_face=document.getElementById("size").value;
       var num_end_face=fpsrate_face*30+1;
       var freqency_face=1000/fpsrate_face;
       //alert(clienturl);
@@ -221,7 +237,7 @@
           url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
           //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
           //url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
-          data: { url: $("#hosturl").val(), name: num_face, fpsrate: fpsrate_face, destiation: $("#lb").val(),},
+          data: { url: $("#hosturl").val(), fpsrate: fpsrate_face, datasize: datasize_face, name: num_face,  destiation: $("#lb").val(),},
           dataType: "text",
           success: function(R_data) {
             var str = R_data.split(':');

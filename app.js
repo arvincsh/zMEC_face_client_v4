@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
 
-app.get('/', function (req, res) {
+app.get('/face', function (req, res) {
   res.render('index');
 })
 app.post('/facedetection', function (req, res) {
